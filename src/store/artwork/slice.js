@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   artwork: null,
+  details: null,
 };
 
 export const artworkSlice = createSlice({
@@ -12,8 +13,12 @@ export const artworkSlice = createSlice({
       //   console.log("allArtwork slice", action);
       state.artwork = action.payload;
     },
+    detailsArtwork: (state, action) => {
+      //   console.log(action.payload);
+      state.details = action.payload;
+    },
   },
 });
-export const { allArtwork } = artworkSlice.actions;
+export const { allArtwork, detailsArtwork } = artworkSlice.actions;
 
 export default artworkSlice.reducer;

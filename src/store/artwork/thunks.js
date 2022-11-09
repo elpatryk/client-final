@@ -1,5 +1,5 @@
 import axios from "axios";
-import { allArtwork } from "./slice";
+import { allArtwork, detailsArtwork } from "./slice";
 const apiUrl = "http://localhost:4000";
 
 export const getArtwork = () => async (dispatch, getState) => {
@@ -17,7 +17,7 @@ export const artworkById = (id) => {
     try {
       const response = await axios.get(`${apiUrl}/artwork/${id}`);
       //   console.log("artwork by id thunk", response);
-      dispatch(allArtwork(response.data));
+      dispatch(detailsArtwork(response.data));
     } catch (e) {
       console.log(e);
     }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { artworkById } from "../store/artwork/thunks";
-import { selectArtwork } from "../store/artwork/selectors";
+import { selectById } from "../store/artwork/selectors";
 import { Title } from "../styled";
 
 export default function Details() {
@@ -12,7 +12,7 @@ export default function Details() {
   useEffect(() => {
     dispatch(artworkById(id));
   }, [dispatch, id]);
-  const artwork = useSelector(selectArtwork);
+  const artwork = useSelector(selectById);
 
   return (
     <div>

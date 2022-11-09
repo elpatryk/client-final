@@ -17,8 +17,12 @@ export const artworkSlice = createSlice({
       //   console.log(action.payload);
       state.details = action.payload;
     },
+    addHearts: (state, action) => {
+      console.log("slice ", action);
+      state.details.hearts = action.payload;
+    },
   },
 });
-export const { allArtwork, detailsArtwork } = artworkSlice.actions;
+export const { allArtwork, detailsArtwork, addHearts } = artworkSlice.actions;
 
 export default artworkSlice.reducer;

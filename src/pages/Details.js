@@ -1,10 +1,11 @@
 import React from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { artworkById } from "../store/artwork/thunks";
+import { artworkById, editHearts } from "../store/artwork/thunks";
 import { selectById } from "../store/artwork/selectors";
-import { Title } from "../styled";
+import { Title, Button } from "../styled";
 
 export default function Details() {
   const dispatch = useDispatch();
@@ -14,8 +15,12 @@ export default function Details() {
   }, [dispatch, id]);
   const artwork = useSelector(selectById);
 
+  const onClickHearts = () => {
+    dispatch(editHearts(artwork.hearts + 1, id));
+    console.log(id);
+  };
   return (
-    <div>
+    <Container>
       {!artwork ? "Loading..." : <Title>{artwork.title}</Title>}
       <div>
         {!artwork ? (
@@ -24,17 +29,28 @@ export default function Details() {
           <div>
             {" "}
             <img src={artwork.imageUrl} alt="artwork img" width="500px" />{" "}
-            Hearts: {artwork.hearts}
+            <Button
+              onClick={() => {
+                onClickHearts();
+              }}
+            >
+              {" "}
+              ❤️ {artwork.hearts}
+            </Button>
             {artwork.bids.map((bid) => {
               return (
                 <div key={bid.id}>
-                  {bid.email} - {bid.amount}€
+                  <strong> {bid.email} </strong>- {bid.amount}€
                 </div>
               );
             })}
           </div>
         )}
       </div>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  margin: 20px;
+`;

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { artworkById, editHearts } from "../store/artwork/thunks";
 import { selectById } from "../store/artwork/selectors";
 import { Title, Button } from "../styled";
+import PostBid from "../components/PostBid";
 
 export default function Details() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export default function Details() {
 
   const onClickHearts = () => {
     dispatch(editHearts(artwork.hearts + 1, id));
-    console.log(id);
+    // console.log(id);
   };
   return (
     <Container>
@@ -46,6 +47,7 @@ export default function Details() {
             })}
           </div>
         )}
+        <PostBid />
       </div>
     </Container>
   );

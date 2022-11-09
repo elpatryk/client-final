@@ -18,11 +18,15 @@ export const artworkSlice = createSlice({
       state.details = action.payload;
     },
     addHearts: (state, action) => {
-      console.log("slice ", action);
+      // console.log("slice ", action);
       state.details.hearts = action.payload;
+    },
+    addBid: (state, action) => {
+      state.details.bids = [...state.details.bids, action.payload];
     },
   },
 });
-export const { allArtwork, detailsArtwork, addHearts } = artworkSlice.actions;
+export const { allArtwork, detailsArtwork, addHearts, addBid } =
+  artworkSlice.actions;
 
 export default artworkSlice.reducer;

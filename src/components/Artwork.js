@@ -26,7 +26,7 @@ export default function Artwork() {
                   alt="not found"
                   width="400px"
                 /> Bids: {art.bids.length}
-                <Link to={`/artwork/${artworks.id}`}>
+                <Link to={`/artwork/${art.id}`}>
                   <Button>View Details</Button>
                 </Link>
               </div>

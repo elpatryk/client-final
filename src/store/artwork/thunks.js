@@ -11,3 +11,15 @@ export const getArtwork = () => async (dispatch, getState) => {
     console.log(e.message);
   }
 };
+
+export const artworkById = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`${apiUrl}/artwork/${id}`);
+      //   console.log("artwork by id thunk", response);
+      dispatch(allArtwork(response.data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};

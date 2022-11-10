@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { Navigation, MessageBox } from "./components";
 import { Homepage, Login, SignUp } from "./pages";
 import Details from "./pages/Details";
+import Auction from "./pages/Auction";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function App() {
       <Navigation />
       <MessageBox />
       <Routes>
+        <Route path="/auction" element={<Auction />} />
         <Route path="/artwork/:id" element={<Details />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/signup" element={<SignUp />} />

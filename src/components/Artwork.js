@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Title, LinkWord } from "../styled";
+import { Button, Title } from "../styled";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ export default function Artwork() {
   const artworks = useSelector(selectArtwork);
   useEffect(() => {
     dispatch(getArtwork());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

@@ -15,8 +15,8 @@ export default function PostBid() {
   const submitForm = (e) => {
     e.preventDefault();
     dispatch(postBid(amount, profile.email, details.id));
-    console.log(amount, profile.email);
-    console.log(token);
+    // console.log(amount, profile.email);
+    // console.log(token);
   };
   return (
     <div>

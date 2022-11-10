@@ -1,6 +1,6 @@
 import axios from "axios";
 import { allArtwork, detailsArtwork, addHearts, addBid } from "./slice";
-import getUserWithStoredToken from "../user/slice";
+
 const apiUrl = "http://localhost:4000";
 
 export const getArtwork = () => async (dispatch, getState) => {
@@ -60,6 +60,31 @@ export const postBid = (amount, email, artworkId) => {
       );
       // console.log("thunk response", response);
       dispatch(addBid(response.data.bid));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
+export const postArtwork = (title, imageUrl, minimumBid) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().user;
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/artwork/auction`,
+        {
+          title,
+          imageUrl,
+          minimumBid,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
     } catch (e) {
       console.log(e);
     }

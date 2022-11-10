@@ -1,6 +1,7 @@
 import axios from "axios";
 import { allArtwork, detailsArtwork, addHearts, addBid } from "./slice";
-
+import { setMessage } from "../appState/slice";
+import { showMessageWithTimeout } from "../appState/thunks";
 const apiUrl = "http://localhost:4000";
 
 export const getArtwork = () => async (dispatch, getState) => {
@@ -60,6 +61,7 @@ export const postBid = (amount, email, artworkId) => {
       );
       // console.log("thunk response", response);
       dispatch(addBid(response.data.bid));
+      dispatch(showMessageWithTimeout("success", false, "New bid!", 1500));
     } catch (e) {
       console.log(e);
     }
@@ -85,8 +87,26 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
         }
       );
       console.log(response);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(
+          setMessage({
+            variant: "danger",
+            dismissable: true,
+            text: error.response.data.message,
+          })
+        );
+      } else {
+        console.log(error.message);
+        dispatch(
+          setMessage({
+            variant: "danger",
+            dismissable: true,
+            text: error.response.data.message,
+          })
+        );
+      }
     }
   };
 };

@@ -25,11 +25,11 @@ export const Navigation = () => {
         <span />
       </Hamburger>
       <Menu open={open}>
-        {user && user.isArtist ? (
-          <MenuLink to="/auction">Start new auction</MenuLink>
-        ) : (
+        {/* {user && user.isArtist ? ( */}
+        <MenuLink to="/auction">Start new auction</MenuLink>
+        {/* ) : (
           ""
-        )}
+        )} */}
         <MenuLink to="/empty2">Empty 2</MenuLink>
         {token ? (
           <Link to="/">

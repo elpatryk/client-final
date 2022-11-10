@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteAuction, getArtwork } from "../store/artwork/thunks";
 import { selectArtwork } from "../store/artwork/selectors";
+import { selectUser } from "../store/user/selectors";
 
 export default function Artwork() {
   const dispatch = useDispatch();
   const artworks = useSelector(selectArtwork);
-  useEffect(() => {
-    dispatch(getArtwork());
-  }, [dispatch]);
+  const user = useSelector(selectUser);
   const onDelete = (id) => {
     dispatch(deleteAuction(id));
   };
+  useEffect((id) => {
+    dispatch(getArtwork());
+  }, []);
+
   return (
     <div>
       {!artworks
@@ -30,14 +33,20 @@ export default function Artwork() {
                 /> Bids: {art.bids.length}
                 <Link to={`/artwork/${art.id}`}>
                   <Button>View Details</Button>
-                </Link>
-                <Button
-                  onClick={() => {
-                    onDelete(art.id);
-                  }}
-                >
-                  DELETE
-                </Button>
+                </Link>{" "}
+                <div>
+                  {!user || !user.isArtist ? (
+                    ""
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        onDelete(art.id);
+                      }}
+                    >
+                      DELETE
+                    </Button>
+                  )}
+                </div>
               </div>
             );
           })}

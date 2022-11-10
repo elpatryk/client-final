@@ -4,10 +4,12 @@ import {
   detailsArtwork,
   addHearts,
   addBid,
+  postAuction,
   deleteArtwork,
 } from "./slice";
-import { setMessage } from "../appState/slice";
+import { appDoneLoading, appLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
+
 const apiUrl = "http://localhost:4000";
 
 export const getArtwork = () => async (dispatch, getState) => {
@@ -50,7 +52,7 @@ export const editHearts = (heart, id) => {
 export const postBid = (amount, email, artworkId) => {
   return async (dispatch, getState) => {
     const { token, profile } = getState().user;
-
+    dispatch(appLoading());
     try {
       const response = await axios.post(
         `${apiUrl}/artwork/${profile.id}/bids`,
@@ -68,6 +70,7 @@ export const postBid = (amount, email, artworkId) => {
       // console.log("thunk response", response);
       dispatch(addBid(response.data.bid));
       dispatch(showMessageWithTimeout("success", false, "New bid!", 1500));
+      dispatch(appDoneLoading());
     } catch (e) {
       console.log(e);
     }
@@ -77,7 +80,7 @@ export const postBid = (amount, email, artworkId) => {
 export const postArtwork = (title, imageUrl, minimumBid) => {
   return async (dispatch, getState) => {
     const { token } = getState().user;
-
+    dispatch(appLoading());
     try {
       const response = await axios.post(
         `${apiUrl}/artwork/auction`,
@@ -92,8 +95,11 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
           },
         }
       );
+      // console.log(response);
+      dispatch(postAuction(response.data.artwork));
       dispatch(showMessageWithTimeout("success", false, "New artwork!", 1500));
-      console.log(response);
+
+      dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
@@ -121,6 +127,7 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
 export const deleteAuction = (artworkId) => {
   return async (dispatch, getState) => {
     const { token } = getState().user;
+    dispatch(appLoading());
     try {
       const response = await axios.delete(
         `${apiUrl}/artwork/auction/${artworkId}`,
@@ -130,11 +137,11 @@ export const deleteAuction = (artworkId) => {
           },
         }
       );
-      dispatch(
-        showMessageWithTimeout("danger", false, "Art work deleted", 1500)
-      );
+
       console.log(response.data);
       dispatch(deleteArtwork(response.data));
+
+      dispatch(appDoneLoading());
     } catch (e) {
       console.error(e);
     }

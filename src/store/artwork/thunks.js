@@ -40,7 +40,7 @@ export const editHearts = (heart, id) => {
   };
 };
 
-export const postBid = (amount, email) => {
+export const postBid = (amount, email, artworkId) => {
   return async (dispatch, getState) => {
     const { token, profile } = getState().user;
 
@@ -50,6 +50,7 @@ export const postBid = (amount, email) => {
         {
           amount,
           email,
+          artworkId,
         },
         {
           headers: {

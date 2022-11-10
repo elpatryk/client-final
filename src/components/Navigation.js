@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { Button } from "../styled";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, selectUser } from "../store/user/selectors";
 import { logOut } from "../store/user/slice";
@@ -12,7 +13,7 @@ export const Navigation = () => {
 
   const token = useSelector(selectToken);
   const user = useSelector(selectUser);
-  console.log("user:", user);
+  // console.log("user:", user);
 
   return (
     <Nav>
@@ -25,16 +26,16 @@ export const Navigation = () => {
         <span />
       </Hamburger>
       <Menu open={open}>
-        {/* {user && user.isArtist ? ( */}
-        <MenuLink to="/auction">Start new auction</MenuLink>
-        {/* ) : (
+        {user && user.isArtist ? (
+          <MenuLink to="/auction">Start new auction</MenuLink>
+        ) : (
           ""
-        )} */}
-        <MenuLink to="/empty2">Empty 2</MenuLink>
+        )}
+
         {token ? (
           <Link to="/">
             {" "}
-            <button onClick={() => dispatch(logOut())}>Logout</button>
+            <Button onClick={() => dispatch(logOut())}>Logout</Button>
           </Link>
         ) : (
           <MenuLink to="/login">Login</MenuLink>

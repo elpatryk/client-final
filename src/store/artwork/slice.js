@@ -24,9 +24,15 @@ export const artworkSlice = createSlice({
     addBid: (state, action) => {
       state.details.bids = [...state.details.bids, action.payload];
     },
+    deleteArtwork: (state, action) => {
+      const artworkId = action.payload;
+      state.artwork = state.artwork.filter(
+        (artwork) => artwork.id !== artworkId
+      );
+    },
   },
 });
-export const { allArtwork, detailsArtwork, addHearts, addBid } =
+export const { allArtwork, detailsArtwork, addHearts, addBid, deleteArtwork } =
   artworkSlice.actions;
 
 export default artworkSlice.reducer;

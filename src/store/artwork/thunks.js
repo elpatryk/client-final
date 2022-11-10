@@ -1,5 +1,11 @@
 import axios from "axios";
-import { allArtwork, detailsArtwork, addHearts, addBid } from "./slice";
+import {
+  allArtwork,
+  detailsArtwork,
+  addHearts,
+  addBid,
+  deleteArtwork,
+} from "./slice";
 import { setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/thunks";
 const apiUrl = "http://localhost:4000";
@@ -86,6 +92,7 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
           },
         }
       );
+      dispatch(showMessageWithTimeout("success", false, "New artwork!", 1500));
       console.log(response);
     } catch (error) {
       if (error.response) {
@@ -107,6 +114,29 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
           })
         );
       }
+    }
+  };
+};
+
+export const deleteAuction = (artworkId) => {
+  return async (dispatch, getState) => {
+    const { token } = getState().user;
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/artwork/auction/${artworkId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(
+        showMessageWithTimeout("danger", false, "Art work deleted", 1500)
+      );
+      console.log(response.data);
+      dispatch(deleteArtwork(response.data));
+    } catch (e) {
+      console.error(e);
     }
   };
 };

@@ -23,7 +23,7 @@ export default function Auction() {
   return (
     <div style={{ textAlign: "center" }}>
       <Container>
-        <Title>Login</Title>
+        <Title>New Artwork</Title>
         <form onSubmit={submitForm}>
           <Input
             placeholder="artwork title"

@@ -3,7 +3,7 @@ import { Button, Title } from "../styled";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getArtwork } from "../store/artwork/thunks";
+import { deleteAuction, getArtwork } from "../store/artwork/thunks";
 import { selectArtwork } from "../store/artwork/selectors";
 
 export default function Artwork() {
@@ -12,7 +12,9 @@ export default function Artwork() {
   useEffect(() => {
     dispatch(getArtwork());
   }, [dispatch]);
-
+  const onDelete = (id) => {
+    dispatch(deleteAuction(id));
+  };
   return (
     <div>
       {!artworks
@@ -29,6 +31,13 @@ export default function Artwork() {
                 <Link to={`/artwork/${art.id}`}>
                   <Button>View Details</Button>
                 </Link>
+                <Button
+                  onClick={() => {
+                    onDelete(art.id);
+                  }}
+                >
+                  DELETE
+                </Button>
               </div>
             );
           })}

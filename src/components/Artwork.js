@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { deleteAuction, getArtwork } from "../store/artwork/thunks";
 import { selectArtwork } from "../store/artwork/selectors";
 import { selectUser } from "../store/user/selectors";
+import { Container } from "@mui/system";
 
 export default function Artwork() {
   const dispatch = useDispatch();
@@ -22,37 +23,37 @@ export default function Artwork() {
   );
 
   return (
-    <div>
-      {!artworks
-        ? "Loading... "
-        : artworks.map((art) => {
-            return (
-              <div key={art.id}>
-                <Title>{art.title}</Title>
-                <img
-                  src={art.imageUrl}
-                  alt="not found"
-                  width="400px"
-                /> Bids: {art.bids.length}
-                <Link to={`/artwork/${art.id}`}>
-                  <Button>View Details</Button>
-                </Link>{" "}
-                <div>
-                  {!user || !user.isArtist ? (
-                    ""
-                  ) : (
-                    <Button
-                      onClick={() => {
-                        onDelete(art.id);
-                      }}
-                    >
-                      DELETE
-                    </Button>
-                  )}
+    <Container>
+      <div>
+        {!artworks
+          ? "Loading... "
+          : artworks.map((art) => {
+              return (
+                <div key={art.id}>
+                  <Title>{art.title}</Title>
+                  <img src={art.imageUrl} alt="not found" width="400px" />
+                  <p>
+                    {" "}
+                    Bids: {art.bids.length}
+                    <Link to={`/artwork/${art.id}`}>
+                      <Button>View Details</Button>
+                    </Link>{" "}
+                    {!user || !user.isArtist ? (
+                      ""
+                    ) : (
+                      <Button
+                        onClick={() => {
+                          onDelete(art.id);
+                        }}
+                      >
+                        DELETE
+                      </Button>
+                    )}
+                  </p>
                 </div>
-              </div>
-            );
-          })}
-    </div>
+              );
+            })}
+      </div>
+    </Container>
   );
 }

@@ -14,9 +14,12 @@ export default function Artwork() {
   const onDelete = (id) => {
     dispatch(deleteAuction(id));
   };
-  useEffect((id) => {
-    dispatch(getArtwork());
-  }, []);
+  useEffect(
+    (id) => {
+      dispatch(getArtwork());
+    },
+    [dispatch]
+  );
 
   return (
     <div>

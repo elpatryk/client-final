@@ -20,6 +20,7 @@ export default function Details() {
     dispatch(editHearts(artwork.hearts + 1, id));
     // console.log(id);
   };
+
   return (
     <Container>
       {!artwork ? "Loading..." : <Title>{artwork.title}</Title>}

@@ -95,7 +95,7 @@ export const postArtwork = (title, imageUrl, minimumBid) => {
           },
         }
       );
-      // console.log(response);
+      console.log(response);
       dispatch(postAuction(response.data.artwork));
       dispatch(showMessageWithTimeout("success", false, "New artwork!", 1500));
 
@@ -140,7 +140,7 @@ export const deleteAuction = (artworkId) => {
 
       console.log(response.data);
       dispatch(deleteArtwork(response.data));
-
+      dispatch(showMessageWithTimeout("danger", true, " artwork deleted"));
       dispatch(appDoneLoading());
     } catch (e) {
       console.error(e);
